@@ -19,13 +19,6 @@ public static class SuperCollider {
         }
         else if (collider is MeshCollider)
         {
-            RPGMesh rpgMesh = collider.GetComponent<RPGMesh>();
-
-            if (rpgMesh != null)
-            {
-                return rpgMesh.ClosestPointOn(to, radius, false, false);
-            }
-
             BSPTree bsp = collider.GetComponent<BSPTree>();
 
             if (bsp != null)
