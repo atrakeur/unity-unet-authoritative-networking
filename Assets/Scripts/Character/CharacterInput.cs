@@ -29,8 +29,8 @@ public class CharacterInput : NetworkBehaviour {
         {
             currentInput.inputState = inputState;
 
-            currentInput.inputHorizontal = Input.GetAxis("Horizontal");
-            currentInput.inputVertical   = Input.GetAxis("Vertical");
+            currentInput.setInputHorizontal(Input.GetAxis("Horizontal"));
+            currentInput.setInputVertical(Input.GetAxis("Vertical"));
             currentInput.inputJump       = Input.GetButton("Jump");
             currentInput.inputAim        = cameraAim.aimPoint;           //Get the aim from the camera
         }
@@ -49,10 +49,30 @@ public class CharacterInput : NetworkBehaviour {
     {
         public int inputState;
 
-        public float inputHorizontal;
-        public float inputVertical;
+        public sbyte inputHorizontal;
+        public sbyte inputVertical;
         public bool inputJump;
         public Vector3 inputAim;
+
+        public void setInputHorizontal(float value)
+        {
+            inputHorizontal = (sbyte)(value * 127);
+        }
+
+        public void setInputVertical(float value)
+        {
+            inputVertical = (sbyte)(value * 127);
+        }
+
+        public float getInputHorizontal()
+        {
+            return (float)inputHorizontal / 127;
+        }
+
+        public float getInputVertical()
+        {
+            return (float)inputVertical / 127;
+        }
     }
 
 }

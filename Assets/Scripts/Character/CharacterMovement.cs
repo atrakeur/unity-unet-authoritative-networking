@@ -31,7 +31,7 @@ public class CharacterMovement : MonoBehaviour {
     {
         if (IsGrounded())
         {
-            moveDirection = new Vector3(input.currentInput.inputHorizontal, 0, input.currentInput.inputVertical);
+            moveDirection = new Vector3(input.currentInput.getInputHorizontal(), 0, input.currentInput.getInputVertical());
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= speed;
 
