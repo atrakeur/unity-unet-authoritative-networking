@@ -13,12 +13,16 @@ public class CharacterMovement : MonoBehaviour {
     [SerializeField]
     public float gravity = 20.0F;
 
+    private CharacterFixedController controller;
     private CharacterInput input;
     private Vector3 moveDirection = Vector3.zero;
+    private Vector3 lookDirection;
 
 	void Awake () 
     {
         input = GetComponent<CharacterInput>();
+        controller = GetComponent<CharacterFixedController>();
+        lookDirection = transform.forward;
 	}
 	
     /// <summary>
@@ -29,32 +33,48 @@ public class CharacterMovement : MonoBehaviour {
     /// <param name="delta"></param>
 	public void RunUpdate(float delta) 
     {
-        if (IsGrounded())
-        {
-            moveDirection = new Vector3(input.currentInput.inputHorizontal, 0, input.currentInput.inputVertical);
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= speed;
-
-            //TODO add jump and gravity
-            /*if (input.currentInput.inputJump)
-            {
-                moveDirection.y = jumpSpeed;
-            }*/
-        }
-        Move(moveDirection);
+        controller.DoUpdate(delta);
 	}
 
-    public void Move(Vector3 direction)
+    void SuperUpdate()
     {
-        //Move to given direction and check if it doesn"t intersect anything
-        //TODO check that position doesn't intersect anything, and move accordigly (block before a wall, step up stairs)
-        transform.Translate(direction, Space.World);
+        lookDirection = input.currentInput.inputAim;
+        moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * speed, Mathf.Infinity);
+        controller.debugMove = moveDirection;
     }
 
-    public bool IsGrounded()
+    /// <summary>
+    /// Constructs a vector representing our movement local to our lookDirection, which is
+    /// controlled by the camera
+    /// </summary>
+    private Vector3 LocalMovement()
     {
-        //TODO check if character is actually touching ground
-        return true;
+        Vector3 right = Vector3.Cross(controller.up, lookDirection);
+
+        Vector3 local = Vector3.zero;
+
+        if (input.currentInput.inputHorizontal != 0)
+        {
+            local += right * input.currentInput.inputHorizontal;
+        }
+
+        if (input.currentInput.inputVertical != 0)
+        {
+            local += lookDirection * input.currentInput.inputVertical;
+        }
+
+        return local.normalized;
+    }
+
+
+    private bool AcquiringGround()
+    {
+        return controller.currentGround.IsGrounded(false, 0.01f);
+    }
+
+    private bool MaintainingGround()
+    {
+        return controller.currentGround.IsGrounded(true, 0.5f);
     }
 
 }
