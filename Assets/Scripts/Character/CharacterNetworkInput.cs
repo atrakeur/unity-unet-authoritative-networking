@@ -20,7 +20,7 @@ using System.Collections.Generic;
 [NetworkSettings(channel = 1, sendInterval = 0.33f)]
 public class CharacterNetworkInput : NetworkBehaviour {
 
-    private const float MAX_CLIENT_WAITING_STATES = 25;         //How many states to keep on client
+    private const float MAX_CLIENT_WAITING_STATES = 30;         //How many states to keep on client
     private const float MAX_CLIENT_DISTANCE_WARNING = 0.25f;    //Max distance between server and localy calculated position
     private const float MAX_SERVER_DISTANCE_SNAP = 0.15f;       //Max distance between client and server calculated position before SNAPPING
 
@@ -38,6 +38,7 @@ public class CharacterNetworkInput : NetworkBehaviour {
     private CharacterMovement characterMovement;
     private CharacterRotation characterRotation;
 
+    private float nextSendTime;                             //CLIENT SIDE time when the client must send data to server
     private Queue<CharacterInput.InputState> inputStates;   //CLIENT SIDE input states not ack by server
 
     private Vector3 serverLastRecvPosition;         //CLIENT SIDE last received pos from server
@@ -76,11 +77,16 @@ public class CharacterNetworkInput : NetworkBehaviour {
             characterMovement.RunUpdate(Time.fixedDeltaTime);
             characterRotation.RunUpdate(Time.fixedDeltaTime);
             //Client: Trim commands to 25 and send commands to server
+            Debug.Log(inputStates.Count);
             if (inputStates.Count > MAX_CLIENT_WAITING_STATES) {
                 Debug.LogError("Too many waiting states, starting to drop frames"); 
             }
             while (inputStates.Count > MAX_CLIENT_WAITING_STATES) { inputStates.Dequeue(); }
-            CmdSetServerInput(inputStates.ToArray(), transform.position);
+            if (nextSendTime < Time.time)
+            {
+                CmdSetServerInput(inputStates.ToArray(), transform.position);
+                nextSendTime = Time.time + 0.33f;
+            }
         }
 	}
 
@@ -88,7 +94,7 @@ public class CharacterNetworkInput : NetworkBehaviour {
     /// Server: Receive a list of inputs from the client
     /// </summary>
     /// <param name="newInputs"></param>
-    [Command]
+    [Command(channel = 1)]
     void CmdSetServerInput(CharacterInput.InputState[] newInputs, Vector3 newClientPos)
     {
         int index = 0;
