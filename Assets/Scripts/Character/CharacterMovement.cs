@@ -55,12 +55,12 @@ public class CharacterMovement : MonoBehaviour {
 
         if (input.currentInput.inputHorizontal != 0)
         {
-            local += right * input.currentInput.inputHorizontal;
+            local += right * input.currentInput.getInputHorizontal();
         }
 
         if (input.currentInput.inputVertical != 0)
         {
-            local += lookDirection * input.currentInput.inputVertical;
+            local += lookDirection * input.currentInput.getInputVertical();
         }
 
         return local.normalized;
