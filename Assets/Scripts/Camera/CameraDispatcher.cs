@@ -15,6 +15,7 @@ public class CameraDispatcher : MonoBehaviour {
     void Start()
     {
         this.mouseAim = GetComponent<CameraMouseAim>();
+        this.mouseAim.enabled = false;
     }
 
     /// <summary>
@@ -23,8 +24,7 @@ public class CameraDispatcher : MonoBehaviour {
     /// <param name="target"></param>
     public void SetCurrentCharacterTarget(GameObject target)
     {
-        this.mouseAim.target = target;
-        this.mouseAim.enabled = true;
+        this.mouseAim.SetTarget(target);
     }
 
 }

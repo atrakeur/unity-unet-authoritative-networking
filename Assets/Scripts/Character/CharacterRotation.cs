@@ -23,8 +23,8 @@ public class CharacterRotation : MonoBehaviour {
     /// <param name="delta"></param>
     public void RunUpdate(float delta)
     {
-        aimPoint = input.currentInput.inputAim;
+        /*aimPoint = input.currentInput.inputAim;
         aimPoint.y = transform.position.y;  //Make the model face always the same height
-        transform.LookAt(aimPoint);
+        transform.LookAt(aimPoint);*/
 	}
 }

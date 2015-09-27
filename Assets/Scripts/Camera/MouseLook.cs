@@ -12,10 +12,9 @@ public class MouseLook
     public bool smooth;
     public float smoothTime = 5f;
 
-
+    [SerializeField]
     private Quaternion m_CharacterTargetRot;
     private Quaternion m_CameraTargetRot;
-
 
     public void Init(Transform character, Transform camera)
     {
@@ -37,14 +36,14 @@ public class MouseLook
 
         if(smooth)
         {
-            character.localRotation = Quaternion.Slerp (character.localRotation, m_CharacterTargetRot,
+            character.rotation = Quaternion.Slerp (character.localRotation, m_CharacterTargetRot,
                 smoothTime * Time.deltaTime);
             camera.localRotation = Quaternion.Slerp (camera.localRotation, m_CameraTargetRot,
                 smoothTime * Time.deltaTime);
         }
         else
         {
-            character.localRotation = m_CharacterTargetRot;
+            character.rotation = m_CharacterTargetRot;
             camera.localRotation = m_CameraTargetRot;
         }
     }
