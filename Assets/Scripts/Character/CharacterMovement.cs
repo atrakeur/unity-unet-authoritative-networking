@@ -38,7 +38,7 @@ public class CharacterMovement : MonoBehaviour {
 
     void SuperUpdate()
     {
-        lookDirection = input.currentInput.inputAim;
+        lookDirection = transform.forward;
         moveDirection = Vector3.MoveTowards(moveDirection, LocalMovement() * speed, Mathf.Infinity);
         controller.debugMove = moveDirection;
     }

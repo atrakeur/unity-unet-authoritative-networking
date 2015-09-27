@@ -7,12 +7,9 @@ using System.Collections;
 public class CharacterRotation : MonoBehaviour {
 
     private CharacterInput input;
-    private Vector3 aimPoint;
 
 	void Awake () {
         input = GetComponent<CharacterInput>();
-
-        aimPoint = input.currentInput.inputAim;
 	}
 	
     /// <summary>
@@ -23,8 +20,6 @@ public class CharacterRotation : MonoBehaviour {
     /// <param name="delta"></param>
     public void RunUpdate(float delta)
     {
-        aimPoint = input.currentInput.inputAim;
-        aimPoint.y = transform.position.y;      //Make the model face always the same height
-        transform.LookAt(aimPoint);
+        transform.rotation = Quaternion.Euler(0, input.currentInput.getYaw(), 0);
 	}
 }

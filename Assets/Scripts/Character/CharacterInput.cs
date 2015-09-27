@@ -31,8 +31,10 @@ public class CharacterInput : NetworkBehaviour {
 
             currentInput.setInputHorizontal(Input.GetAxis("Horizontal"));
             currentInput.setInputVertical(Input.GetAxis("Vertical"));
-            currentInput.inputJump       = Input.GetButton("Jump");
-            currentInput.inputAim        = cameraAim.aimPoint;           //Get the aim from the camera
+            currentInput.setPitch(cameraAim.pitch);
+            currentInput.setYaw(cameraAim.yaw);
+
+            currentInput.inputJump = Input.GetButton("Jump");
         }
     }
 
@@ -52,7 +54,28 @@ public class CharacterInput : NetworkBehaviour {
         public sbyte inputHorizontal;
         public sbyte inputVertical;
         public bool inputJump;
-        public Vector3 inputAim;
+        public short pitch;
+        public short yaw;
+
+        public void setPitch(float value)
+        {
+            pitch = (short)(value * 10);
+        }
+
+        public void setYaw(float value)
+        {
+            yaw = (short)(value * 10);
+        }
+
+        public float getPitch()
+        {
+            return (float)pitch / 10;
+        }
+
+        public float getYaw()
+        {
+            return (float)yaw / 10;
+        }
 
         public void setInputHorizontal(float value)
         {

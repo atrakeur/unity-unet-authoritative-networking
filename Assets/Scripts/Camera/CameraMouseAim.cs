@@ -17,7 +17,7 @@ public class CameraMouseAim : MonoBehaviour {
 
     public void RunUpdate(float delta)
     {
-        m_MouseLook.LookRotation(target.transform, m_Camera.transform);
+        m_MouseLook.LookRotation(target.transform.parent, m_Camera.transform);
 	}
 
     public void SetTarget(GameObject target)
@@ -30,13 +30,13 @@ public class CameraMouseAim : MonoBehaviour {
         }
         else
         {
-            this.transform.parent = target.transform;
-            this.transform.localPosition = Vector3.zero;
+            this.transform.parent = target.transform.parent;
+            this.transform.position = target.transform.position;
             this.transform.rotation = target.transform.rotation;
             this.enabled = true;
 
             m_Camera = Camera.main;
-            m_MouseLook.Init(target.transform, m_Camera.transform);
+            m_MouseLook.Init(target.transform.parent, m_Camera.transform);
         }
     }
 }

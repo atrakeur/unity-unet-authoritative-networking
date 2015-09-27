@@ -286,6 +286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 100
+  pitch: 0
+  yaw: 0
   aimPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &255111933
 MonoBehaviour:
