@@ -299,10 +299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  rotateSpeedH: 5
-  rotateSpeedV: 10
-  offset: {x: .5, y: .300000012, z: 3.4000001}
-  clampV: 40
   m_MouseLook:
     XSensitivity: 2
     YSensitivity: 2
@@ -311,6 +307,7 @@ MonoBehaviour:
     MaximumX: 90
     smooth: 0
     smoothTime: 5
+    m_CharacterTargetRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &255111934
 MonoBehaviour:
   m_ObjectHideFlags: 0
