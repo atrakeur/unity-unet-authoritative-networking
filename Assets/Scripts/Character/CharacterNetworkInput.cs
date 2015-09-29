@@ -65,6 +65,7 @@ public class CharacterNetworkInput : NetworkBehaviour {
         //Client: Only client run simulation in realtime for the player to see
         if (isLocalPlayer)
         {
+            Profile.StartProfile("CharacterNetworkInput.FixedUpdate");
             //Client: start a new state
             localInputState = localInputState + 1;
             //Client: Updates camera
@@ -92,6 +93,7 @@ public class CharacterNetworkInput : NetworkBehaviour {
                 CmdSetServerInput(inputStates.ToArray(), transform.position);
                 nextSendTime = Time.time + 0.33f;
             }
+            Profile.EndProfile("CharacterNetworkInput.FixedUpdate");
         }
 	}
 
@@ -102,6 +104,7 @@ public class CharacterNetworkInput : NetworkBehaviour {
     [Command(channel = 1)]
     void CmdSetServerInput(CharacterInput.InputState[] newInputs, Vector3 newClientPos)
     {
+        Profile.StartProfile("CharacterNetworkInput.CmdSetServerInput");
         int index = 0;
 
         //Server: Input received but state not consecutive with the last one ACKed
@@ -145,6 +148,7 @@ public class CharacterNetworkInput : NetworkBehaviour {
         
         //Server: Send to other script that state update finished
         SendMessage("ServerStateReceived", clientInputState, SendMessageOptions.DontRequireReceiver);
+        Profile.EndProfile("CharacterNetworkInput.CmdSetServerInput");
     }
 
     /// <summary>
@@ -157,6 +161,8 @@ public class CharacterNetworkInput : NetworkBehaviour {
     /// <param name="serverRecvRotation"></param>
     void ServerState(CharacterNetworkSync.CharacterState characterState)
     {
+        Profile.StartProfile("CharacterNetworkInput.ServerState");
+
         int serverRecvState = characterState.state;
         Vector3 serverRecvPosition = characterState.position;
         Quaternion serverRecvRotation = characterState.rotation;
@@ -221,6 +227,8 @@ public class CharacterNetworkInput : NetworkBehaviour {
                 transform.rotation = Quaternion.Lerp(transform.rotation, serverLastPredRotation, Time.fixedDeltaTime * 10);
             }
         }
+
+        Profile.EndProfile("CharacterNetworkInput.ServerState");
     }
 
     void OnDrawGizmos()

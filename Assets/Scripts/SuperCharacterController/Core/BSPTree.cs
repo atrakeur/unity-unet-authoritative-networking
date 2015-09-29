@@ -36,6 +36,7 @@ public class BSPTree : MonoBehaviour {
 
     void Awake()
     {
+        Profile.StartProfile("BSPTree.Awake");
         mesh = GetComponent<MeshCollider>().sharedMesh;
 
         tris = mesh.triangles;
@@ -55,6 +56,8 @@ public class BSPTree : MonoBehaviour {
 
         if (!drawMeshTreeOnStart)
             BuildTriangleTree();
+
+        Profile.EndProfile("BSPTree.Awake");
     }
 
     void Start()
