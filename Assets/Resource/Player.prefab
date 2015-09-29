@@ -247,7 +247,8 @@ MonoBehaviour:
     inputHorizontal: 0
     inputVertical: 0
     inputJump: 0
-    inputAim: {x: 0, y: 0, z: 0}
+    pitch: 0
+    yaw: 0
 --- !u!114 &11441776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -316,8 +317,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpSpeed: 1
-  gravity: 1
+  jumpHeight: 4
+  gravity: 9
+  gravityAccel: 9
 --- !u!114 &11491002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -377,11 +379,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: jumpSpeed
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: gravity
-      value: 1
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: Walkable.m_Bits
@@ -418,6 +420,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: gravityAccel
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: jumpHeight
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

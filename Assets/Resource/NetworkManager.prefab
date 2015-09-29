@@ -75,7 +75,7 @@ MonoBehaviour:
     m_IsAcksLong: 0
     m_Channels: []
   m_Channels: 0500000000000000
-  m_UseSimulator: 1
+  m_UseSimulator: 0
   m_SimulatedLatency: 40
   m_PacketLossPercentage: 0
   m_MatchHost: mm.unet.unity3d.com
@@ -105,7 +105,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_UseSimulator
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 196984}

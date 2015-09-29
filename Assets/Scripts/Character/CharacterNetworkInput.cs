@@ -86,6 +86,7 @@ public class CharacterNetworkInput : NetworkBehaviour {
                 Debug.LogError("Too many waiting states, starting to drop frames"); 
             }
             while (inputStates.Count > MAX_CLIENT_WAITING_STATES) { inputStates.Dequeue(); }
+            //Client: Send every sendInterval
             if (isServer && isLocalPlayer || nextSendTime < Time.time)
             {
                 CmdSetServerInput(inputStates.ToArray(), transform.position);
