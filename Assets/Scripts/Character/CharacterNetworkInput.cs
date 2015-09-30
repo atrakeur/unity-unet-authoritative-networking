@@ -138,10 +138,6 @@ public class CharacterNetworkInput : NetworkBehaviour {
 
         //Check on server that position received from client isn't too far from the position calculated locally
         //TODO: maybe add a cheat check here
-        if (!isLocalPlayer)
-        {
-            Debug.Log("Distance: " + Vector3.Distance(newClientPos, transform.position));
-        }
         if (Vector3.Distance(newClientPos, transform.position) > MAX_CLIENT_DISTANCE_WARNING) {
             Debug.LogWarning("Client distance too far from player (maybe net condition are very bad or move code isn't deterministic)");
         }
