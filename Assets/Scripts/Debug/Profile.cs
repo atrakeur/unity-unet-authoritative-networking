@@ -70,6 +70,19 @@ public class Profile: MonoBehaviour
         Debug.Log(output.ToString());
     }
 
+    void Start()
+    {
+        Console.CommandHandlers += Console_CommandHandlers;
+    }
+
+    void Console_CommandHandlers(string[] parts)
+    {
+        switch (parts[0])
+        {
+            case "profiler": PrintResults(); break;
+        }
+    }
+
     void OnApplicationQuit()
     {
         PrintResults();
