@@ -46,7 +46,7 @@ public class Profile: MonoBehaviour
     {
         TimeSpan endTime = DateTime.UtcNow - startTime;
         System.Text.StringBuilder output = new System.Text.StringBuilder();
-        output.Append("============================\n\tProfile results:\n============================\n");
+        output.Append("============== Profile results: ==============\n");
         foreach (KeyValuePair<string, ProfilePoint> pair in profiles)
         {
             double totalTime = pair.Value.totalTime.TotalSeconds;
@@ -64,9 +64,8 @@ public class Profile: MonoBehaviour
             output.Append((totalTime / totalCalls).ToString("F5"));
             output.Append(" seconds per call");
         }
-        output.Append("\n\n============================\n\tTotal runtime: ");
-        output.Append(endTime.TotalSeconds.ToString("F3"));
-        output.Append(" seconds\n============================");
+
+        output.Append("============== Runtime:" + endTime.TotalSeconds.ToString("F3") + " ==============\n");
         Debug.Log(output.ToString());
     }
 
@@ -77,9 +76,17 @@ public class Profile: MonoBehaviour
 
     void Console_CommandHandlers(string[] parts)
     {
-        switch (parts[0])
+        if (parts[0] == "profiler")
         {
-            case "profiler": PrintResults(); break;
+            if (parts.Length == 1)
+            {
+                PrintResults();
+            }
+            else if (parts[1] == "clear")
+            {
+                profiles.Clear();
+                Debug.Log("Profile data cleared");
+            }
         }
     }
 

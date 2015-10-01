@@ -31,12 +31,12 @@ public class Console : MonoBehaviour {
     {
         if (type == LogType.Log || type == LogType.Warning)
         {
-            consoleBuffer += condition + "\n";
+            consoleBuffer = condition + "\n" + consoleBuffer;
         }
         else
         {
-            consoleBuffer += condition + "\n";
-            consoleBuffer += stackTrace + "\n";
+            consoleBuffer = condition + "\n" + consoleBuffer;
+            consoleBuffer = stackTrace + "\n" + consoleBuffer;
         }
     }
 
@@ -48,6 +48,7 @@ public class Console : MonoBehaviour {
         }
     }
 
+    Vector2 scrollPosition;
     void OnGUI()
     {
         if (!enabled)
@@ -56,17 +57,20 @@ public class Console : MonoBehaviour {
         }
 
         GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height / 2));
-        GUILayout.BeginVertical();
-        GUILayout.TextArea(consoleBuffer, new GUILayoutOption[]{GUILayout.ExpandHeight(true)});
-        GUILayout.BeginHorizontal();
-        commandBuffer = GUILayout.TextField(commandBuffer);
-        if (GUILayout.Button("Run", new GUILayoutOption[]{GUILayout.Width(Screen.width / 6)})) {
-            consoleBuffer += " -> " + commandBuffer + "\n";
-            ExecuteCommand(commandBuffer);
-            commandBuffer = ""; 
-        }
-        GUILayout.EndHorizontal();
-        GUILayout.EndVertical();
+            GUILayout.BeginVertical();
+                scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+                    GUILayout.TextArea(consoleBuffer, new GUILayoutOption[]{GUILayout.ExpandHeight(true)});
+                GUILayout.EndScrollView();
+                GUILayout.BeginHorizontal();
+                    commandBuffer = GUILayout.TextField(commandBuffer);
+                    if (GUILayout.Button("Run", new GUILayoutOption[]{GUILayout.Width(Screen.width / 6)})) {
+                        ExecuteCommand(commandBuffer);
+                        consoleBuffer = " -> " + commandBuffer + "\n" + consoleBuffer;
+                        commandBuffer = "";
+                        scrollPosition = Vector2.left * 1000;
+                    }
+                GUILayout.EndHorizontal();
+            GUILayout.EndVertical();
         GUILayout.EndArea();
     }
 
