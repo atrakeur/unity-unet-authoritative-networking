@@ -9,6 +9,8 @@ public class CharacterMovement : MonoBehaviour {
     [SerializeField]
     public float speed = 6.0F;
     [SerializeField]
+    public float runSpeed = 8.0F;
+    [SerializeField]
     public float jumpHeight = 8.0F;
     [SerializeField]
     public float gravity = 20.0F;
@@ -58,7 +60,12 @@ public class CharacterMovement : MonoBehaviour {
         }
 
         //Calculate movement from keys
-        Vector3 movement = Vector3.MoveTowards(moveDirection, LocalMovement() * speed, Mathf.Infinity);
+        float actualSpeed = speed;
+        if (input.currentInput.inputRun)
+        {
+            actualSpeed = runSpeed;
+        }
+        Vector3 movement = Vector3.MoveTowards(moveDirection, LocalMovement() * actualSpeed, Mathf.Infinity);
 
         //Add jump velocity if jumping
         if (input.currentInput.inputJump && AcquiringGround())

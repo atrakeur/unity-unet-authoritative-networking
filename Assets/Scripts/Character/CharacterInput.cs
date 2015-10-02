@@ -35,6 +35,9 @@ public class CharacterInput : NetworkBehaviour {
             currentInput.setYaw(cameraAim.yaw);
 
             currentInput.inputJump = Input.GetButton("Jump");
+            currentInput.inputFire = Input.GetButton("Fire1");
+            currentInput.inputAim  = Input.GetButton("Fire2");
+            currentInput.inputRun  = Input.GetButton("Run");
         }
     }
 
@@ -53,9 +56,13 @@ public class CharacterInput : NetworkBehaviour {
 
         public sbyte inputHorizontal;
         public sbyte inputVertical;
-        public bool inputJump;
         public short pitch;
         public short yaw;
+
+        public bool inputJump;
+        public bool inputFire;
+        public bool inputAim;
+        public bool inputRun;
 
         public void setPitch(float value)
         {
