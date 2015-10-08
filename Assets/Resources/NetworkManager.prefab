@@ -135,12 +135,13 @@ MonoBehaviour:
   m_SendPeerInfo: 0
   m_MaxDelay: .00999999978
   m_LogLevel: 1
-  m_PlayerPrefab: {fileID: 126950, guid: ac7a10342c0fe6d4f9a98dccaa2727ed, type: 2}
+  m_PlayerPrefab: {fileID: 112194, guid: accf5bc70dd97a645ad644989f66ca98, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
   m_OfflineScene: 
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 126950, guid: ac7a10342c0fe6d4f9a98dccaa2727ed, type: 2}
   m_CustomConfig: 1
   m_MaxConnections: 14
   m_ConnectionConfig:
@@ -163,8 +164,8 @@ MonoBehaviour:
     m_IsAcksLong: 0
     m_Channels: []
   m_Channels: 0500000000000000
-  m_UseSimulator: 0
-  m_SimulatedLatency: 1
+  m_UseSimulator: 1
+  m_SimulatedLatency: 40
   m_PacketLossPercentage: 0
   m_MatchHost: mm.unet.unity3d.com
   m_MatchPort: 443
@@ -181,7 +182,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_UseSimulator
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_NetworkPort
@@ -190,7 +191,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_PlayerPrefab
       value: 
-      objectReference: {fileID: 126950, guid: ac7a10342c0fe6d4f9a98dccaa2727ed, type: 2}
+      objectReference: {fileID: 112194, guid: accf5bc70dd97a645ad644989f66ca98, type: 2}
     - target: {fileID: 0}
       propertyPath: m_MaxConnections
       value: 14
@@ -202,6 +203,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LogLevel
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_SimulatedLatency
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
