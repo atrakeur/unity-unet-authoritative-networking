@@ -22,8 +22,6 @@ public class CharacterNetworkInterpolation : MonoBehaviour {
     /// <param name="newState"></param>
     public void ReceiveState(CharacterNetworkSync.CharacterState newState)
     {
-        Profile.StartProfile("CharacterNetworkInterpolation.ReceiveState");
-
         //Other Clients: Shift buffer and store at first position
         for (int i = bufferedStates.Length - 1; i >= 1; i--)
         {
@@ -43,15 +41,11 @@ public class CharacterNetworkInterpolation : MonoBehaviour {
         }
 
         lastBufferedStateTime = Time.time;
-
-        Profile.EndProfile("CharacterNetworkInterpolation.ReceiveState");
-
     }
 
     // We interpolate only on other clients, not on the server, and not on the local client)
     void Update()
     {
-        Profile.StartProfile("CharacterNetworkInterpolation.Update");
 
         //Loop all states
         for (int i = 0; i < bufferedStatesCount; i++)
@@ -83,8 +77,6 @@ public class CharacterNetworkInterpolation : MonoBehaviour {
                 break;
             }
         }
-
-        Profile.EndProfile("CharacterNetworkInterpolation.Update");
     }
 
 }

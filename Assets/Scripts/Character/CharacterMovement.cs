@@ -39,9 +39,7 @@ public class CharacterMovement : MonoBehaviour {
     /// <param name="delta"></param>
 	public void RunUpdate(float delta) 
     {
-        Profile.StartProfile("CharacterMovement.RunUpdate");
         controller.DoUpdate(delta);
-        Profile.EndProfile("CharacterMovement.RunUpdate");
 	}
 
     /// <summary>
