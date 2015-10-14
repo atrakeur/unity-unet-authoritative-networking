@@ -40,12 +40,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3012be93e00254186798b0a12d7d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateInterval: 1
-  playerPrefab: {fileID: 126950, guid: ac7a10342c0fe6d4f9a98dccaa2727ed, type: 2}
-  name: 
+  characterPrefab: {fileID: 126950, guid: ac7a10342c0fe6d4f9a98dccaa2727ed, type: 2}
+  displayName: unnamed
   ping: 0
-  hostID: 0
-  connID: 0
 --- !u!114 &11451244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -87,6 +84,10 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 126950, guid: ac7a10342c0fe6d4f9a98dccaa2727ed, type: 2}
+    - target: {fileID: 0}
+      propertyPath: characterPrefab
       value: 
       objectReference: {fileID: 126950, guid: ac7a10342c0fe6d4f9a98dccaa2727ed, type: 2}
     m_RemovedComponents: []

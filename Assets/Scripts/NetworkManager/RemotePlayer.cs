@@ -31,7 +31,8 @@ public class RemotePlayer : NetworkBehaviour {
         transform.parent = PlayerManager.Instance.transform;
         if (isLocalPlayer)
         {
-            CmdSetDisplayName("Atrakeur");
+            //Here we set a name for this player (from PlayerPref for example)
+            CmdSetDisplayName("SomeName");
         }
     }
 
@@ -84,7 +85,7 @@ public class RemotePlayer : NetworkBehaviour {
     /// Spawn a new character for this player
     /// </summary>
     [Command]
-    void CmdSpawnPlayer()
+    public void CmdSpawnPlayer()
     {
         if (ClientScene.FindLocalObject(spawnedCharacterID) == null)
         {
@@ -96,6 +97,16 @@ public class RemotePlayer : NetworkBehaviour {
         {
             Debug.LogWarning("Server: Can't spawn two character for the same player");
         }
+    }
+
+    public GameObject GetCharacterObject()
+    {
+        if (spawnedCharacterID == null)
+        {
+            return null;
+        }
+
+        return ClientScene.FindLocalObject(spawnedCharacterID);
     }
 
 }

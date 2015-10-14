@@ -22,5 +22,18 @@ public class PlayerManager : NetworkBehaviour {
             return instance;
         }
     }
+
+    public RemotePlayer GetLocalPlayer()
+    {
+        foreach (RemotePlayer player in FindObjectsOfType<RemotePlayer>()) 
+        {
+            if (player.isLocalPlayer)
+            {
+                return player;
+            }
+        }
+
+        throw new Exception("Can't find local player");
+    }
 	
 }
