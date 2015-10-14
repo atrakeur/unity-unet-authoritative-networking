@@ -12,9 +12,7 @@ public class RemotePlayer : NetworkBehaviour {
     private float nextUpdate = 0;
 
     [SerializeField]
-    private float updateInterval = 1;
-    [SerializeField]
-    private GameObject playerPrefab;
+    private GameObject characterPrefab;
 
     [SyncVar]
     public string name = "unnamed";
@@ -22,8 +20,11 @@ public class RemotePlayer : NetworkBehaviour {
     [SyncVar]
     public short ping = 999;
 
-    public int hostID;
-    public int connID;
+    [SyncVar]
+    public NetworkInstanceId spawnedCharacterID;
+
+    private int hostID;
+    private int connID;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class RemotePlayer : NetworkBehaviour {
 
     void Update()
     {
+        //Init some values (first frame only)
         if (isServer && !isInit)
         {
             NetworkIdentity identity = GetComponent<NetworkIdentity>();
@@ -50,27 +52,48 @@ public class RemotePlayer : NetworkBehaviour {
             isInit = true;
         }
 
+        //Update player ping
         if (isServer && !isLocalPlayer && Time.time > nextUpdate)
         {
-            nextUpdate = Time.time + updateInterval;
+            nextUpdate = Time.time + GetNetworkSendInterval();
 
             byte error;
             this.ping = (short)NetworkTransport.GetCurrentRtt(hostID, connID, out error);
         }
+
+        //TODO remove spawn code
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            CmdSpawnPlayer();
+        }
     }
 
+    /// <summary>
+    /// Set player name
+    /// </summary>
+    /// <param name="name"></param>
     [Command]
     void CmdSetPlayerName(string name)
     {
         this.name = name;
     }
 
+    /// <summary>
+    /// Spawn a new character for this player
+    /// </summary>
     [Command]
     void CmdSpawnPlayer()
     {
-        var go = (GameObject)Instantiate(playerPrefab, Vector3.up, Quaternion.identity);
-
-        //TODO
+        if (ClientScene.FindLocalObject(spawnedCharacterID) == null)
+        {
+            var go = (GameObject)Instantiate(characterPrefab, Vector3.up, Quaternion.identity);
+            NetworkServer.AddPlayerForConnection(GetComponent<NetworkIdentity>().connectionToClient, go, 1);
+            spawnedCharacterID = go.GetComponent<NetworkIdentity>().netId;
+        }
+        else
+        {
+            Debug.LogWarning("Server: Can't spawn two character for the same player");
+        }
     }
 
 }

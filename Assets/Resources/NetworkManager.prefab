@@ -129,9 +129,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 27000
+  m_ServerBindToIP: 0
+  m_ServerBindAddress: 
   m_NetworkAddress: localhost
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
+  m_ScriptCRCCheck: 1
   m_SendPeerInfo: 0
   m_MaxDelay: .00999999978
   m_LogLevel: 1
@@ -148,10 +151,10 @@ MonoBehaviour:
     m_PacketSize: 1500
     m_FragmentSize: 500
     m_ResendTimeout: 1200
-    m_DisconnectTimeout: 2000
-    m_ConnectTimeout: 2000
+    m_DisconnectTimeout: 4000
+    m_ConnectTimeout: 4000
     m_MinUpdateTimeout: 10
-    m_PingTimeout: 500
+    m_PingTimeout: 1000
     m_ReducedPingTimeout: 100
     m_AllCostTimeout: 20
     m_NetworkDropThreshold: 5
@@ -207,6 +210,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SimulatedLatency
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ConnectionConfig.m_PingTimeout
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ConnectionConfig.m_DisconnectTimeout
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ConnectionConfig.m_ConnectTimeout
+      value: 4000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
