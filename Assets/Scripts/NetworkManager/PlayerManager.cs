@@ -10,62 +10,17 @@ using System.Collections.Generic;
 [NetworkSettings(channel=0, sendInterval=2f)]
 public class PlayerManager : NetworkBehaviour {
 
-    [Serializable]
-    public struct PlayerInfo
+    private static PlayerManager instance;
+    public static PlayerManager Instance
     {
-        public string name;
-        public short rtt;
-
-        public int hostID;
-        public int connID;
-    };
-
-    public class SyncListPlayer : SyncListStruct<PlayerInfo> { }
-    public SyncListPlayer players = new SyncListPlayer();
-
-    public void AddPlayer(int connID, int hostID)
-    {
-        PlayerInfo player = new PlayerInfo();
-
-        player.name = "?";
-        player.rtt = 999;
-        player.connID = connID;
-        player.hostID = hostID;
-
-        players.Add(player);
-    }
-
-    public int GetPlayerIndex(int connID, int hostID)
-    {
-        for (int i = 0; i < players.Count; i++)
+        get
         {
-            if (players[i].connID == connID && players[i].hostID == hostID)
+            if (instance == null)
             {
-                return i;
+                instance = FindObjectOfType<PlayerManager>();
             }
+            return instance;
         }
-
-        return -1;
-    }
-
-    public PlayerInfo GetPlayer(int connID, int hostID) 
-    {
-        int index = GetPlayerIndex(connID, hostID);
-        if (index == -1)
-        {
-            throw new Exception("Can't find player with connID " + connID);
-        }
-        return players[index];
-    }
-
-    public void RemovePlayer(int connID, int hostID)
-    {
-        players.Remove(GetPlayer(connID, hostID));
-    }
-
-    void Update()
-    {
-        //TODO update ping
     }
 	
 }

@@ -28,6 +28,7 @@ public class RemotePlayer : NetworkBehaviour {
 
     void Start()
     {
+        transform.parent = PlayerManager.Instance.transform;
         if (isLocalPlayer)
         {
             CmdSetDisplayName("Atrakeur");
@@ -76,6 +77,7 @@ public class RemotePlayer : NetworkBehaviour {
     void CmdSetDisplayName(string name)
     {
         this.displayName = name;
+        this.gameObject.name = "Player " + name;
     }
 
     /// <summary>
