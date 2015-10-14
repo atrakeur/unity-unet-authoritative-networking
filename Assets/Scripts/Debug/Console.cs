@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Console : MonoBehaviour {
 
-    private static bool enabled;
+    private static bool showed;
 
     private static string commandBuffer = "";
     private static string consoleBuffer = "";
@@ -23,7 +23,7 @@ public class Console : MonoBehaviour {
     {
         switch (parts[0])
         {
-            case "console": enabled = ParseBoolean(parts[1]); break;
+            case "console": showed = ParseBoolean(parts[1]); break;
         }
     }
 
@@ -44,14 +44,14 @@ public class Console : MonoBehaviour {
     {
         if (Input.GetKeyUp(KeyCode.F12))
         {
-            enabled = !enabled;
+            showed = !showed;
         }
     }
 
     Vector2 scrollPosition;
     void OnGUI()
     {
-        if (!enabled)
+        if (!showed)
         {
             return;
         }

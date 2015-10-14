@@ -15,7 +15,7 @@ public class RemotePlayer : NetworkBehaviour {
     private GameObject characterPrefab;
 
     [SyncVar]
-    public string name = "unnamed";
+    public string displayName = "unnamed";
 
     [SyncVar]
     public short ping = 999;
@@ -30,7 +30,7 @@ public class RemotePlayer : NetworkBehaviour {
     {
         if (isLocalPlayer)
         {
-            CmdSetPlayerName("Atrakeur");
+            CmdSetDisplayName("Atrakeur");
         }
     }
 
@@ -73,9 +73,9 @@ public class RemotePlayer : NetworkBehaviour {
     /// </summary>
     /// <param name="name"></param>
     [Command]
-    void CmdSetPlayerName(string name)
+    void CmdSetDisplayName(string name)
     {
-        this.name = name;
+        this.displayName = name;
     }
 
     /// <summary>
